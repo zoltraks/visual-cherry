@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cherry.Common\Cherry.Common.csproj" />
+    <ProjectReference Include="..\Cherry.Syntax\Cherry.Syntax.csproj" />
+  </ItemGroup>
+
+</Project>
