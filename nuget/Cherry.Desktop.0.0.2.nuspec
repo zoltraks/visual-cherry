@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Cherry.Desktop</id>
+    <version>
+0.0.2.0
+    </version>
+    <title>Visual Cherry Desktop</title>
+    <authors>Filip Golewski &lt;f.golewski@gmail.com&gt;</authors>
+    <owners>Filip Golewski &lt;f.golewski@gmail.com&gt;</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">LGPL-3.0-or-later</license>
+    <projectUrl>https://visual-cherry.readthedocs.io/</projectUrl>
+    <icon>cherry.png</icon>
+    <description>No description yet.</description>
+    <summary>Desktop controls library.</summary>
+    <releaseNotes>How much reality can you take?</releaseNotes>
+    <copyright>Filip Golewski &lt;f.golewski@gmail.com&gt;</copyright>
+    <language>en-us</language>
+    <tags>graphics controls desktop</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0">
+        <dependency id="Cherry.Common" version="0.0.1" />
+      </group>
+      <group targetFramework=".NETFramework3.5">
+        <dependency id="Cherry.Common" version="0.0.1" />
+      </group>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="Cherry.Common" version="0.0.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\media\image\cherry.png" target="" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Release\net20\Cherry.Desktop.dll" target="lib\net20\Cherry.Desktop.dll" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Release\net20\Cherry.Desktop.pdb" target="lib\net20\Cherry.Desktop.pdb" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Cherry.Desktop.xml" target="lib\net20\Cherry.Desktop.xml" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Release\net35\Cherry.Desktop.dll" target="lib\net35\Cherry.Desktop.dll" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Release\net35\Cherry.Desktop.pdb" target="lib\net35\Cherry.Desktop.pdb" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Cherry.Desktop.xml" target="lib\net35\Cherry.Desktop.xml" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Release\net40\Cherry.Desktop.dll" target="lib\net40\Cherry.Desktop.dll" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Release\net40\Cherry.Desktop.pdb" target="lib\net40\Cherry.Desktop.pdb" />
+    <file src="..\src\csharp\Cherry.Desktop\bin\Cherry.Desktop.xml" target="lib\net40\Cherry.Desktop.xml" />
+  </files>
+</package>

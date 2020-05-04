@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-namespace Visual.Cherry.Desktop
+namespace Cherry.Desktop
 {
     [DesignerCategory("")]
     [ToolboxBitmap(typeof(NinePatch), "NinePatch.bmp")]
@@ -20,7 +20,7 @@ namespace Visual.Cherry.Desktop
             SetupComponent();
         }
 
-        private Visual.Cherry.Common.NinePatch _NinePatch;
+        private Cherry.Common.NinePatch _NinePatch;
 
         private Bitmap _Bitmap;
 
@@ -162,7 +162,7 @@ namespace Visual.Cherry.Desktop
                     {
                         if (null == _NinePatch)
                         {
-                            _NinePatch = new Visual.Cherry.Common.NinePatch(_Image as Bitmap);
+                            _NinePatch = new Cherry.Common.NinePatch(_Image as Bitmap);
                         }
                         _Bitmap = _NinePatch.CreateBitmap(this.Width, this.Height);
                     }

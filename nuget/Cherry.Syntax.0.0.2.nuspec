@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Cherry.Syntax</id>
+    <version>
+0.0.2.0
+    </version>
+    <title>Visual Cherry Syntax</title>
+    <authors>Filip Golewski &lt;f.golewski@gmail.com&gt;</authors>
+    <owners>Filip Golewski &lt;f.golewski@gmail.com&gt;</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">LGPL-3.0-or-later</license>
+    <projectUrl>https://visual-cherry.readthedocs.io/</projectUrl>
+    <icon>cherry.png</icon>
+    <description>No description yet.</description>
+    <summary>Cherry syntax library.</summary>
+    <releaseNotes>How much reality can you take?</releaseNotes>
+    <copyright>Filip Golewski &lt;f.golewski@gmail.com&gt;</copyright>
+    <language>en-us</language>
+    <tags>prototype language</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0" />
+      <group targetFramework=".NETFramework3.5" />
+      <group targetFramework=".NETFramework4.0" />
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\media\image\cherry.png" target="" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\net20\Cherry.Syntax.dll" target="lib\net20\Cherry.Syntax.dll" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\net20\Cherry.Syntax.pdb" target="lib\net20\Cherry.Syntax.pdb" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Cherry.Syntax.xml" target="lib\net20\Cherry.Syntax.xml" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\net35\Cherry.Syntax.dll" target="lib\net35\Cherry.Syntax.dll" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\net35\Cherry.Syntax.pdb" target="lib\net35\Cherry.Syntax.pdb" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Cherry.Syntax.xml" target="lib\net35\Cherry.Syntax.xml" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\net40\Cherry.Syntax.dll" target="lib\net40\Cherry.Syntax.dll" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\net40\Cherry.Syntax.pdb" target="lib\net40\Cherry.Syntax.pdb" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Cherry.Syntax.xml" target="lib\net40\Cherry.Syntax.xml" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\netstandard2.0\Cherry.Syntax.dll" target="lib\netstandard2.0\Cherry.Syntax.dll" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Release\netstandard2.0\Cherry.Syntax.pdb" target="lib\netstandard2.0\Cherry.Syntax.pdb" />
+    <file src="..\src\csharp\Cherry.Syntax\bin\Cherry.Syntax.xml" target="lib\netstandard2.0\Cherry.Syntax.xml" />
+  </files>
+</package>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Visual.Cherry.Common
+namespace Cherry.Common
 {
     public class Hex
     {
@@ -40,7 +40,7 @@ namespace Visual.Cherry.Common
 
         public Hex(string hex)
         {
-            _Color = Visual.Cherry.Common.Utility.HexToColor(hex);
+            _Color = Cherry.Common.Utility.HexToColor(hex);
         }
 
         public static implicit operator System.Drawing.Color(Hex hex)

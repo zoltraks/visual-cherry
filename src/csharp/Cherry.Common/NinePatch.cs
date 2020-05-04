@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Visual.Cherry.Common
+namespace Cherry.Common
 {
     public class NinePatch
     {

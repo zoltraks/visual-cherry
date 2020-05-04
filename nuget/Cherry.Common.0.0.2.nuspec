@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Cherry.Common</id>
+    <version>
+0.0.2.0
+    </version>
+    <title>Visual Cherry Common</title>
+    <authors>Filip Golewski &lt;f.golewski@gmail.com&gt;</authors>
+    <owners>Filip Golewski &lt;f.golewski@gmail.com&gt;</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">LGPL-3.0-or-later</license>
+    <projectUrl>https://visual-cherry.readthedocs.io/</projectUrl>
+    <icon>cherry.png</icon>
+    <summary>Common graphics library.</summary>
+    <description>No description yet.</description>
+    <releaseNotes>How much reality can you take?</releaseNotes>
+    <copyright>Filip Golewski &lt;f.golewski@gmail.com&gt;</copyright>
+    <language>en-us</language>
+    <tags>graphics</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0" />
+      <group targetFramework=".NETFramework3.5" />
+      <group targetFramework=".NETFramework4.0" />
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\media\image\cherry.png" target="" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\net20\Cherry.Common.dll" target="lib\net20\Cherry.Common.dll" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\net20\Cherry.Common.pdb" target="lib\net20\Cherry.Common.pdb" />
+    <file src="..\src\csharp\Cherry.Common\bin\Cherry.Common.xml" target="lib\net20\Cherry.Common.xml" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\net35\Cherry.Common.dll" target="lib\net35\Cherry.Common.dll" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\net35\Cherry.Common.pdb" target="lib\net35\Cherry.Common.pdb" />
+    <file src="..\src\csharp\Cherry.Common\bin\Cherry.Common.xml" target="lib\net35\Cherry.Common.xml" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\net40\Cherry.Common.dll" target="lib\net40\Cherry.Common.dll" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\net40\Cherry.Common.pdb" target="lib\net40\Cherry.Common.pdb" />
+    <file src="..\src\csharp\Cherry.Common\bin\Cherry.Common.xml" target="lib\net40\Cherry.Common.xml" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\netstandard2.0\Cherry.Common.dll" target="lib\netstandard2.0\Cherry.Common.dll" />
+    <file src="..\src\csharp\Cherry.Common\bin\Release\netstandard2.0\Cherry.Common.pdb" target="lib\netstandard2.0\Cherry.Common.pdb" />
+    <file src="..\src\csharp\Cherry.Common\bin\Cherry.Common.xml" target="lib\netstandard2.0\Cherry.Common.xml" />
+  </files>
+</package>

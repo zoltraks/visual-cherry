@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
 
-namespace Visual.Cherry.Common.Test
+namespace Cherry.Common.Test
 {
     [TestClass]
     public class NinePatch
@@ -10,9 +10,9 @@ namespace Visual.Cherry.Common.Test
         public void TestMethod1()
         {
             Bitmap b, bm1;
-            Visual.Cherry.Common.NinePatch p;
-            System.Drawing.Color c1 = new Visual.Cherry.Common.Hex("#0000");
-            System.Drawing.Color c2 = new Visual.Cherry.Common.Hex("#000f");
+            Cherry.Common.NinePatch p;
+            System.Drawing.Color c1 = new Cherry.Common.Hex("#0000");
+            System.Drawing.Color c2 = new Cherry.Common.Hex("#000f");
 
             b = new System.Drawing.Bitmap(3 + 2, 1 + 2);
 
@@ -20,11 +20,11 @@ namespace Visual.Cherry.Common.Test
             b.SetPixel(2, 0, c2);
             b.SetPixel(3, 0, c1);
 
-            p = new Visual.Cherry.Common.NinePatch(b);
+            p = new Cherry.Common.NinePatch(b);
             Assert.IsNotNull(p);
-            Assert.AreEqual(Visual.Cherry.Common.NinePatch.StretchMode.Vertical, p.Matrix[0, 0].S);
-            Assert.AreEqual(Visual.Cherry.Common.NinePatch.StretchMode.Both, p.Matrix[0, 1].S);
-            Assert.AreEqual(Visual.Cherry.Common.NinePatch.StretchMode.Vertical, p.Matrix[0, 2].S);
+            Assert.AreEqual(Cherry.Common.NinePatch.StretchMode.Vertical, p.Matrix[0, 0].S);
+            Assert.AreEqual(Cherry.Common.NinePatch.StretchMode.Both, p.Matrix[0, 1].S);
+            Assert.AreEqual(Cherry.Common.NinePatch.StretchMode.Vertical, p.Matrix[0, 2].S);
 
             b = new System.Drawing.Bitmap(3 + 2, 3 + 2);
 
@@ -36,7 +36,7 @@ namespace Visual.Cherry.Common.Test
             b.SetPixel(0, 2, c2);
             b.SetPixel(0, 3, c1);
 
-            p = new Visual.Cherry.Common.NinePatch(b);
+            p = new Cherry.Common.NinePatch(b);
             Assert.IsNotNull(p);
 
             Assert.AreEqual(2, p.GetFixedPixelCountX());
@@ -48,7 +48,7 @@ namespace Visual.Cherry.Common.Test
             Assert.AreEqual(5, bm1.Height);
 
             b = new System.Drawing.Bitmap(3 + 2, 3 + 2);
-            p = new Visual.Cherry.Common.NinePatch(b);
+            p = new Cherry.Common.NinePatch(b);
             //o.Bitmap.SetPixel()
         }
     }
