@@ -32,6 +32,8 @@ namespace Cherry.Desktop
             this.Scroll += new ScrollEventHandler(this.FrameBox_Scroll);
             this.ControlAdded += new ControlEventHandler(this.FrameBox_ControlAdded);
 
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
+
             this.ResumeLayout(false);
         }
 
@@ -155,165 +157,172 @@ namespace Cherry.Desktop
         /// <param name="pe"></param>
         protected override void OnPaint(PaintEventArgs pe)
         {
-            Graphics g = pe.Graphics;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            Brush b;
-
-            b = new SolidBrush(BackColor);
-            g.FillRectangle(b, 0, 0, Width, Height);
-
-            if (_FillColor != Color.Transparent && _FillColor != BackColor)
+            try
             {
-                b = new SolidBrush(_FillColor);
-                if (_FrameColor == Color.Transparent || _FrameWidth == 0)
+                Graphics g = pe.Graphics;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                Brush b;
+
+                b = new SolidBrush(BackColor);
+                g.FillRectangle(b, 0, 0, Width, Height);
+
+                if (_FillColor != Color.Transparent && _FillColor != BackColor)
                 {
+                    b = new SolidBrush(_FillColor);
+                    if (_FrameColor == Color.Transparent || _FrameWidth == 0)
+                    {
+                        g.FillRectangle(b
+                            , 0 + _FrameWidth + _FrameMargin.Left
+                            , 0 + _FrameWidth + _FrameMargin.Top
+                            , Width - _FrameWidth - _FrameWidth - _FrameMargin.Right - _FrameMargin.Left
+                            , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top
+                            );
+                        return;
+                    }
                     g.FillRectangle(b
-                        , 0 + _FrameWidth + _FrameMargin.Left
+                        , 0 + _FrameWidth + _FrameMargin.Left + _FrameCorner
                         , 0 + _FrameWidth + _FrameMargin.Top
-                        , Width - _FrameWidth - _FrameWidth - _FrameMargin.Right - _FrameMargin.Left
+                        , Width - _FrameWidth - _FrameWidth - _FrameMargin.Right - _FrameMargin.Left - _FrameCorner - _FrameCorner
                         , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top
                         );
+                    if (_FrameCorner > 0)
+                    {
+                        g.FillRectangle(b
+                            , 0 + _FrameWidth + _FrameMargin.Left
+                            , 0 + _FrameWidth + _FrameMargin.Top + _FrameCorner
+                            , _FrameCorner
+                            , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top - _FrameCorner - _FrameCorner
+                        );
+                        g.FillRectangle(b
+                            , Width - _FrameWidth - _FrameMargin.Left - _FrameCorner
+                            , 0 + _FrameWidth + _FrameMargin.Top + _FrameCorner
+                            , _FrameCorner
+                            , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top - _FrameCorner - _FrameCorner
+                        );
+                    }
+                }
+
+                if (_FrameColor == Color.Transparent || _FrameWidth == 0)
+                {
                     return;
                 }
-                g.FillRectangle(b
-                    , 0 + _FrameWidth + _FrameMargin.Left + _FrameCorner
-                    , 0 + _FrameWidth + _FrameMargin.Top
-                    , Width - _FrameWidth - _FrameWidth - _FrameMargin.Right - _FrameMargin.Left - _FrameCorner - _FrameCorner
-                    , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top
-                    );
-                if (_FrameCorner > 0)
+
+                int w = Width - 1;
+                int h = Height - 1;
+                Padding m = FrameMargin;
+                int c = _FrameCorner;
+                Pen p = new Pen(_FrameColor, _FrameWidth);
+
+                if (c == 0)
                 {
-                    g.FillRectangle(b
-                        , 0 + _FrameWidth + _FrameMargin.Left
-                        , 0 + _FrameWidth + _FrameMargin.Top + _FrameCorner
-                        , _FrameCorner
-                        , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top - _FrameCorner - _FrameCorner
-                    );
-                    g.FillRectangle(b
-                        , Width - _FrameWidth - _FrameMargin.Left - _FrameCorner
-                        , 0 + _FrameWidth + _FrameMargin.Top + _FrameCorner
-                        , _FrameCorner
-                        , Height - _FrameWidth - _FrameWidth - _FrameMargin.Bottom - _FrameMargin.Top - _FrameCorner - _FrameCorner
-                    );
+                    if (_FrameWidth > 1)
+                    {
+                        w++;
+                        h++;
+                    }
+                    p.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                    g.DrawRectangle(p, new Rectangle(m.Left, m.Top, w - m.Left - m.Right, h - m.Top - m.Bottom));
+                    return;
                 }
-            }
 
-            if (_FrameColor == Color.Transparent || _FrameWidth == 0)
-            {
-                return;
-            }
+                int d = c * 2;
 
-            int w = Width - 1;
-            int h = Height - 1;
-            Padding m = FrameMargin;
-            int c = _FrameCorner;
-            Pen p = new Pen(_FrameColor, _FrameWidth);
-
-            if (c == 0)
-            {
-                if (_FrameWidth > 1)
+                if (this.VerticalScroll.Visible)
                 {
-                    w++;
-                    h++;
+                    w -= SystemInformation.VerticalScrollBarWidth;
                 }
-                p.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                g.DrawRectangle(p, new Rectangle(m.Left, m.Top, w - m.Left - m.Right, h - m.Top - m.Bottom));
-                return;
-            }
 
-            int d = c * 2;
+                float δ = _FrameWidth / 2.0f;
+                int α = _FrameCorner % 2;
+                int γ = _FrameWidth / 2;
+                int ε = _FrameWidth - 1;
 
-            if (this.VerticalScroll.Visible)
-            {
-                w -= SystemInformation.VerticalScrollBarWidth;
-            }
-            
-            float δ = _FrameWidth / 2.0f;
-            int α = _FrameCorner % 2;
-            int γ = _FrameWidth / 2;
-            int ε = _FrameWidth - 1;
-
-            if (!this.VerticalScroll.Visible)
-            {
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-
-                g.FillPie(b, new Rectangle(0 + m.Left + γ, 0 + m.Top + γ, d + ε + 1, d + ε + 1), 180, 90); // TopLeft
-                g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, 0 + m.Top + γ, d + ε + 1, d + ε + 1), 270, 90); // TopRight
-                g.FillPie(b, new Rectangle(0 + m.Left + γ, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 90, 90); // BottomLeft
-                g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 0, 90); // BottomLeft
-
-                g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
-                g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
-                g.DrawLine(p, c + m.Left + δ - α, 0 + m.Top + δ, w - m.Right - c - δ + α, 0 + m.Top + δ); // HorizontalTop
-                g.DrawLine(p, c + m.Left + δ - α, h - m.Bottom - δ + 0.1f, w - m.Right - c - δ + α, h - m.Bottom - δ + 0.1f); // HorizontalBottom
-
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-
-                g.DrawArc(p, new Rectangle(0 + m.Left + γ, 0 + m.Top + γ, d, d), 180, 90); // TopLeft
-                g.DrawArc(p, new Rectangle(w - d - m.Right - γ, 0 + m.Top + γ, d, d), 270, 90); // TopRight
-                g.DrawArc(p, new Rectangle(0 + m.Left + γ, h - d - m.Bottom - γ, d, d), 90, 90); // BottomLeft
-                g.DrawArc(p, new Rectangle(w - d - m.Right - γ, h - d - m.Bottom - γ, d, d), 0, 90); // BottomRight
-            }
-            else
-            {
-                if (VerticalScroll.Value <= VerticalScroll.Minimum)
+                if (!this.VerticalScroll.Visible)
                 {
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
                     p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
 
                     g.FillPie(b, new Rectangle(0 + m.Left + γ, 0 + m.Top + γ, d + ε + 1, d + ε + 1), 180, 90); // TopLeft
                     g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, 0 + m.Top + γ, d + ε + 1, d + ε + 1), 270, 90); // TopRight
-
-                    g.FillRectangle(b, 0 + m.Left, Height - m.Bottom - d, d, d); // BottomLeft
-                    g.FillRectangle(b, Width - m.Right - d, Height - m.Bottom - d, d, d); // BottomRight
+                    g.FillPie(b, new Rectangle(0 + m.Left + γ, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 90, 90); // BottomLeft
+                    g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 0, 90); // BottomLeft
 
                     g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
                     g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
                     g.DrawLine(p, c + m.Left + δ - α, 0 + m.Top + δ, w - m.Right - c - δ + α, 0 + m.Top + δ); // HorizontalTop
+                    g.DrawLine(p, c + m.Left + δ - α, h - m.Bottom - δ + 0.1f, w - m.Right - c - δ + α, h - m.Bottom - δ + 0.1f); // HorizontalBottom
 
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                     p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
 
                     g.DrawArc(p, new Rectangle(0 + m.Left + γ, 0 + m.Top + γ, d, d), 180, 90); // TopLeft
                     g.DrawArc(p, new Rectangle(w - d - m.Right - γ, 0 + m.Top + γ, d, d), 270, 90); // TopRight
-                }
-                else if (VerticalScroll.Value + this.Height >= VerticalScroll.Maximum - 1)
-                {
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                    p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-
-                    g.FillPie(b, new Rectangle(0 + m.Left + γ, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 90, 90); // BottomLeft
-                    g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 0, 90); // BottomLeft
-
-                    g.FillRectangle(b, 0 + m.Left, 0 + m.Top, d, d); // TopLeft
-                    g.FillRectangle(b, Width - m.Right - d, 0 + m.Top, d, d); // TopRight
-
-                    g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
-                    g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
-                    g.DrawLine(p, c + m.Left + δ - α, h - m.Bottom - δ + 0.1f, w - m.Right - c - δ + α, h - m.Bottom - δ + 0.1f); // HorizontalBottom
-
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                    p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-
                     g.DrawArc(p, new Rectangle(0 + m.Left + γ, h - d - m.Bottom - γ, d, d), 90, 90); // BottomLeft
                     g.DrawArc(p, new Rectangle(w - d - m.Right - γ, h - d - m.Bottom - γ, d, d), 0, 90); // BottomRight
                 }
                 else
                 {
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                    p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+                    if (VerticalScroll.Value <= VerticalScroll.Minimum)
+                    {
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                        p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
 
-                    g.FillRectangle(b, 0 + m.Left, 0 + m.Top, d, d); // TopLeft
-                    g.FillRectangle(b, Width - m.Right - d, 0 + m.Top, d, d); // TopRight
-                    g.FillRectangle(b, 0 + m.Left, Height - m.Bottom - d, d, d); // BottomLeft
-                    g.FillRectangle(b, Width - m.Right - d, Height - m.Bottom - d, d, d); // BottomRight
+                        g.FillPie(b, new Rectangle(0 + m.Left + γ, 0 + m.Top + γ, d + ε + 1, d + ε + 1), 180, 90); // TopLeft
+                        g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, 0 + m.Top + γ, d + ε + 1, d + ε + 1), 270, 90); // TopRight
 
-                    g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
-                    g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
+                        g.FillRectangle(b, 0 + m.Left, Height - m.Bottom - d, d, d); // BottomLeft
+                        g.FillRectangle(b, Width - m.Right - d, Height - m.Bottom - d, d, d); // BottomRight
+
+                        g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
+                        g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
+                        g.DrawLine(p, c + m.Left + δ - α, 0 + m.Top + δ, w - m.Right - c - δ + α, 0 + m.Top + δ); // HorizontalTop
+
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+
+                        g.DrawArc(p, new Rectangle(0 + m.Left + γ, 0 + m.Top + γ, d, d), 180, 90); // TopLeft
+                        g.DrawArc(p, new Rectangle(w - d - m.Right - γ, 0 + m.Top + γ, d, d), 270, 90); // TopRight
+                    }
+                    else if (VerticalScroll.Value + this.Height >= VerticalScroll.Maximum - 1)
+                    {
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                        p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+
+                        g.FillPie(b, new Rectangle(0 + m.Left + γ, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 90, 90); // BottomLeft
+                        g.FillPie(b, new Rectangle(w - m.Right - γ - d - ε - 1, h - m.Bottom - γ - d - ε - 1, d + ε + 1, d + ε + 1), 0, 90); // BottomLeft
+
+                        g.FillRectangle(b, 0 + m.Left, 0 + m.Top, d, d); // TopLeft
+                        g.FillRectangle(b, Width - m.Right - d, 0 + m.Top, d, d); // TopRight
+
+                        g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
+                        g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
+                        g.DrawLine(p, c + m.Left + δ - α, h - m.Bottom - δ + 0.1f, w - m.Right - c - δ + α, h - m.Bottom - δ + 0.1f); // HorizontalBottom
+
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+
+                        g.DrawArc(p, new Rectangle(0 + m.Left + γ, h - d - m.Bottom - γ, d, d), 90, 90); // BottomLeft
+                        g.DrawArc(p, new Rectangle(w - d - m.Right - γ, h - d - m.Bottom - γ, d, d), 0, 90); // BottomRight
+                    }
+                    else
+                    {
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                        p.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+
+                        g.FillRectangle(b, 0 + m.Left, 0 + m.Top, d, d); // TopLeft
+                        g.FillRectangle(b, Width - m.Right - d, 0 + m.Top, d, d); // TopRight
+                        g.FillRectangle(b, 0 + m.Left, Height - m.Bottom - d, d, d); // BottomLeft
+                        g.FillRectangle(b, Width - m.Right - d, Height - m.Bottom - d, d, d); // BottomRight
+
+                        g.DrawLine(p, 0 + m.Left + δ, c + m.Top + δ - α, 0 + m.Left + δ, h - m.Bottom - c - δ + α); // VerticalLeft
+                        g.DrawLine(p, w - m.Right - δ + 0.1f, c + m.Top + δ - α, w - m.Right - δ + 0.1f, h - m.Bottom - c - δ + α); // VerticalRight
+                    }
                 }
+            }
+            finally
+            {
+                base.OnPaint(pe);
             }
         }
 
