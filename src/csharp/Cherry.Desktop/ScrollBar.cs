@@ -132,6 +132,7 @@ namespace Cherry.Desktop
         private int _Portion;
 
         [Category("Behavior")]
+        [Description("Visible portion adjustable by scroll bar. This value is used to proportional sizing slider.")]
         public int Portion
         {
             get
@@ -143,7 +144,6 @@ namespace Cherry.Desktop
                 _Portion = value;
             }
         }
-
 
         private bool _GripBeforeVisible;
 
@@ -343,7 +343,7 @@ namespace Cherry.Desktop
                 g = pe.Graphics;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 
-                int sliderPixel = 0;
+                int sliderOffset = 0;
                 int sliderLength = 0;
 
                 if (Orientation.Horizontal == _Orientation)
@@ -356,7 +356,7 @@ namespace Cherry.Desktop
                 }
                 if (_GripBeforeVisible)
                 {
-                    sliderPixel += _GripBeforeSize;
+                    sliderOffset += _GripBeforeSize;
                     sliderLength -= _GripBeforeSize;
                 }
                 if (_GripAfterVisible)
@@ -365,7 +365,7 @@ namespace Cherry.Desktop
                 }
                 if (_ArrowBeforeVisible)
                 {
-                    sliderPixel += _ArrowBeforeSize;
+                    sliderOffset += _ArrowBeforeSize;
                     sliderLength -= _ArrowBeforeSize;
                 }
                 if (_ArrowAfterVisible)
@@ -373,12 +373,29 @@ namespace Cherry.Desktop
                     sliderLength -= _ArrowAfterSize;
                 }
 
+                int stepCount = _Maximum - _Minimum;
+                int sliderWidth = 0;
+
+                if (_Portion > 0)
+                {
+
+                }
+                else
+                {
+
+                }
+
+                if (sliderWidth < _SliderMinimumSize)
+                {
+                    sliderWidth = _SliderMinimumSize;
+                }
+
                 if (Orientation.Horizontal == _Orientation)
                 {
                     if (Color.Transparent != _SliderBackColor)
                     {
                         b = new SolidBrush(_SliderBackColor);
-                        Rectangle sliderRect = new Rectangle(Padding.Left + sliderPixel, Padding.Top, sliderLength - Padding.Left - Padding.Right, Height - Padding.Top - Padding.Bottom);
+                        Rectangle sliderRect = new Rectangle(Padding.Left + sliderOffset, Padding.Top, sliderLength - Padding.Left - Padding.Right, Height - Padding.Top - Padding.Bottom);
                         g.FillRectangle(b, sliderRect);
                     }
                 }
