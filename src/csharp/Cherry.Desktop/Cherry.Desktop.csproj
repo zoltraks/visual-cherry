@@ -37,7 +37,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="PanelBox.cs" />
   </ItemGroup>
 
 </Project>
