@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cherry.Desktop", "Cherry.De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cherry.Command", "Cherry.Command\Cherry.Command.csproj", "{C4CC2225-6215-4CBE-AD82-405FF806CB11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherry.Desktop.Demo", "Cherry.Desktop.Demo\Cherry.Desktop.Demo.csproj", "{3556DCD2-C3D2-4A7F-8355-0B82FDBE6EDB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{C4CC2225-6215-4CBE-AD82-405FF806CB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4CC2225-6215-4CBE-AD82-405FF806CB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4CC2225-6215-4CBE-AD82-405FF806CB11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3556DCD2-C3D2-4A7F-8355-0B82FDBE6EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3556DCD2-C3D2-4A7F-8355-0B82FDBE6EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3556DCD2-C3D2-4A7F-8355-0B82FDBE6EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3556DCD2-C3D2-4A7F-8355-0B82FDBE6EDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
